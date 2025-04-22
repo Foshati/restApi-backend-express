@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
     "migrate": "npx prisma migrate dev",
-    "generate": "npx prisma generate"
+    "generate": "npx prisma generate",
+    "docs": "ts-node ./src/swagger.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +14,15 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.6.0",
-    "express": "^5.1.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
+    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.9",
     "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
