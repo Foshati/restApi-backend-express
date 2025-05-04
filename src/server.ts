@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import authorRouter from './routes/author.router';
+import profileRouter from 'routes/profile.router';
 
 dotenv.config();
 const app = express();
@@ -12,7 +13,7 @@ app.use(express.json());
 
 //router
 app.use("/authors", authorRouter);
-
+app.use("/profiles", profileRouter);
 //swagger
 const swaggerDocument = require(path.join(__dirname, 'swagger-output.json'));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

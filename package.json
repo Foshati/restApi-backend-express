@@ -6,7 +6,9 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate",
-    "docs": "ts-node ./src/swagger.ts"
+    "docs": "ts-node ./src/swagger.ts",
+    "start": "ts-node src/server.ts",
+    "build:docs": "ts-node ./src/swagger.ts"
   },
   "keywords": [],
   "author": "",

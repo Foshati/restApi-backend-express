@@ -20,3 +20,22 @@ model Book {
   author      Author @relation(fields: [authorId], references: [id])
   description String
 }
+
+model Profile {
+  id         String   @id @default(uuid())
+  firstName  String
+  lastName   String
+  email      String   @unique
+  username   String   @unique
+  phone      String?
+  city       String?
+  country    String?
+  occupation String?
+  address    String?
+  bio        String?
+  gender     String?
+  languages  String
+  location   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
