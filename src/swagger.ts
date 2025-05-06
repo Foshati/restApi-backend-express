@@ -109,7 +109,7 @@ const swaggerDoc: SwaggerDocument = {
 };
 
 const outputFile = "./src/swagger-output.json";
-const endpointsFiles = ["./src/routes/author.router.ts"];
+const endpointsFiles = ["./src/routes/book.Routes.ts"];
 
 // Only generate Swagger documentation if this file is run directly
 if (require.main === module) {

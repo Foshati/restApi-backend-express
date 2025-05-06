@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import authorRouter from './routes/author.route';
-import profileRouter from 'routes/profile.route';
-import bookRouter from 'routes/book.Routes';
+import profileRouter from './routes/profile.route';
+import bookRouter from './routes/book.route';
 
 
 dotenv.config();
