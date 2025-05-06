@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import path from 'path';
 import authorRouter from './routes/author.route';
 import profileRouter from 'routes/profile.route';
+import bookRouter from 'routes/book.Routes';
 
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 //router
 app.use("/authors", authorRouter);
 app.use("/profiles", profileRouter);
+app.use("/books", bookRouter);
 
 //swagger
 const swaggerDocument = require(path.join(__dirname, 'swagger-output.json'));

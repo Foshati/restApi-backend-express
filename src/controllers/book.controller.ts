@@ -1,8 +1,16 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+import { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import prisma from 'lib/prisma';
+
+
+interface BookInput {
+  title: string;
+  authorId: string;
+  description: string;
+}
 
 // Get all books
-const getAllBooks = async (req, res) => {
+export const getAllBooks = async (req: Request, res: Response): Promise<void> => {
   try {
     const books = await prisma.book.findMany({
       include: {
@@ -11,12 +19,12 @@ const getAllBooks = async (req, res) => {
     });
     res.json(books);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An error occurred' });
   }
 };
 
 // Get a single book by ID
-const getBookById = async (req, res) => {
+export const getBookById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const book = await prisma.book.findUnique({
@@ -26,16 +34,17 @@ const getBookById = async (req, res) => {
       }
     });
     if (!book) {
-      return res.status(404).json({ message: 'Book not found' });
+      res.status(404).json({ message: 'Book not found' });
+      return;
     }
     res.json(book);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An error occurred' });
   }
 };
 
 // Create a new book
-const createBook = async (req, res) => {
+export const createBook = async (req: Request<{}, {}, BookInput>, res: Response): Promise<void> => {
   try {
     const { title, authorId, description } = req.body;
     const book = await prisma.book.create({
@@ -50,12 +59,12 @@ const createBook = async (req, res) => {
     });
     res.status(201).json(book);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An error occurred' });
   }
 };
 
 // Update a book
-const updateBook = async (req, res) => {
+export const updateBook = async (req: Request<{ id: string }, {}, BookInput>, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { title, authorId, description } = req.body;
@@ -72,12 +81,12 @@ const updateBook = async (req, res) => {
     });
     res.json(book);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An error occurred' });
   }
 };
 
 // Delete a book
-const deleteBook = async (req, res) => {
+export const deleteBook = async (req: Request<{ id: string }>, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     await prisma.book.delete({
@@ -85,7 +94,7 @@ const deleteBook = async (req, res) => {
     });
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'An error occurred' });
   }
 };
 

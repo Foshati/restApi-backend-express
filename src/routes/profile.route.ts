@@ -1,18 +1,19 @@
 import { Router } from 'express';
 import {
-  createProfile,
-  deleteProfile,
-  getAllProfiles,
-  getProfileById,
-  updateProfile
-} from '../controllers/profile.Controller';
+  createBook,
+  deleteBook,
+  getAllBooks,
+  getBookById,
+  updateBook,
+
+} from '../controllers/book.controller';
 
 const profileRouter = Router();
 
-profileRouter.get('/', getAllProfiles);
-profileRouter.get('/:id', getProfileById);
-profileRouter.post('/', createProfile);
-profileRouter.put('/:id', updateProfile);
-profileRouter.delete('/:id', deleteProfile);
+profileRouter.get('/', getAllBooks);
+profileRouter.get('/:id', getBookById);
+profileRouter.post('/', createBook);
+profileRouter.put('/:id', updateBook);
+profileRouter.delete('/:id', deleteBook);
 
 export default profileRouter; 
