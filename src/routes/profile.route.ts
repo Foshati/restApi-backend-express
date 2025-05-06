@@ -5,7 +5,7 @@ import {
   getAllProfiles,
   getProfileById,
   updateProfile
-} from '../controllers/profile.controller';
+} from '../controllers/profile.Controller';
 
 const profileRouter = Router();
 
