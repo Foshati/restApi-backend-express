@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma';
 
@@ -35,7 +35,7 @@ const handleError = (error: unknown, res: Response) => {
         if (error.code === 'P2002') {
             return res.status(409).json({
                 status: 'error',
-                message: 'Author with this email already exists'
+                message: 'Author with this name already exists'
             });
         }
     }
@@ -123,9 +123,9 @@ export const getAuthorById = async (req: Request, res: Response, next: NextFunct
 // Create new author
 export const createAuthor = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { name, email, bio, birthDate } = req.body;
+        const { name } = req.body;
 
-        // Check if author with same name exists (since email is not in the model)
+        // Check if author with same name exists
         const existingAuthor = await prisma.author.findFirst({
             where: { name }
         });
@@ -135,9 +135,7 @@ export const createAuthor = async (req: Request, res: Response, next: NextFuncti
         }
 
         const author = await prisma.author.create({
-            data: {
-                name
-            }
+            data: { name }
         });
 
         res.status(201).json({
@@ -163,7 +161,6 @@ export const updateAuthor = async (req: Request, res: Response, next: NextFuncti
         if (!existingAuthor) {
             throw new ApiError(404, 'Author not found');
         }
-
 
         // Check if name is being updated to a name that already exists
         if (name && name !== existingAuthor.name) {
