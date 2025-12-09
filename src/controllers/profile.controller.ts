@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import prisma from 'lib/prisma';
+import { Request, Response } from 'exfa';
+import prisma from '../lib/prisma';
 
 
 export const createProfile = (req: Request, res: Response) => {

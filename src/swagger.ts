@@ -57,8 +57,8 @@ const swaggerDoc: SwaggerDocument = {
   openapi: "3.0.0",
   info: {
     version: "1.0.0",
-    title: "Todo Apis",
-    description: "API for Managing todo calls",
+    title: "Project API",
+    description: "API for Authors, Books, and Profiles",
     contact: {
       name: "API Support",
       email: "tiwariankit496@gmail.com",
@@ -71,12 +71,16 @@ const swaggerDoc: SwaggerDocument = {
   produces: ["application/json"],
   tags: [
     {
-      name: "TODO CRUD",
-      description: "TODO related apis",
+      name: "Authors",
+      description: "Author management endpoints",
     },
     {
-      name: "Todo",
-      description: "Todo App",
+      name: "Books",
+      description: "Book management endpoints",
+    },
+    {
+      name: "Profiles",
+      description: "Profile management endpoints",
     },
   ],
   securityDefinitions: {},
@@ -109,7 +113,7 @@ const swaggerDoc: SwaggerDocument = {
 };
 
 const outputFile = "./src/swagger-output.json";
-const endpointsFiles = ["./src/routes/book.Routes.ts"];
+const endpointsFiles = ["./src/server.ts"];
 
 // Only generate Swagger documentation if this file is run directly
 if (require.main === module) {

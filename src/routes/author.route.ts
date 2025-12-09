@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction, RequestHandler } from "exfa";
 import { 
   createAuthor, 
   deleteAuthor, 
@@ -15,18 +15,9 @@ import {
 
 const authorRouter = Router();
 
-// Helper type for async route handlers
-type AsyncRequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<void>;
-
 // Wrapper to handle async/await in route handlers
-const asyncHandler = (fn: AsyncRequestHandler) => 
-  (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-  };
+// Uses RequestHandler for proper type compatibility
+const asyncHandler = <T extends RequestHandler>(fn: T): T => fn;
 
 // Get all authors
 authorRouter.get("/", asyncHandler(getAllAuthors));

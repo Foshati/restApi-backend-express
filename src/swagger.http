@@ -1,0 +1,76 @@
+@baseUrl = http://localhost:8080
+
+### Authors
+GET {{baseUrl}}/authors
+###
+GET {{baseUrl}}/authors/123e4567-e89b-12d3-a456-426614174000
+###
+POST {{baseUrl}}/authors
+Content-Type: application/json
+
+{
+    "name": "J.K. Rowling"
+}
+###
+PUT {{baseUrl}}/authors/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "name": "J.K. Rowling (Updated)"
+}
+###
+DELETE {{baseUrl}}/authors/123e4567-e89b-12d3-a456-426614174000
+
+
+### Books
+GET {{baseUrl}}/books
+###
+GET {{baseUrl}}/books/123e4567-e89b-12d3-a456-426614174000
+###
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+    "title": "Harry Potter and the Philosopher's Stone",
+    "authorId": "123e4567-e89b-12d3-a456-426614174000",
+    "description": "A fantasy novel about a young wizard."
+}
+###
+PUT {{baseUrl}}/books/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "title": "Harry Potter (Special Edition)",
+    "description": "Updated description for the special edition."
+}
+###
+DELETE {{baseUrl}}/books/123e4567-e89b-12d3-a456-426614174000
+
+
+### Profiles
+GET {{baseUrl}}/profiles
+###
+GET {{baseUrl}}/profiles/123e4567-e89b-12d3-a456-426614174000
+###
+POST {{baseUrl}}/profiles
+Content-Type: application/json
+
+{
+    "userId": "123e4567-e89b-12d3-a456-426614174000",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "bio": "Full Stack Developer",
+    "address": "123 Tech Lane"
+}
+###
+PUT {{baseUrl}}/profiles/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+    "bio": "Senior Full Stack Developer",
+    "phone": "+0987654321"
+}
+###
+DELETE {{baseUrl}}/profiles/123e4567-e89b-12d3-a456-426614174000

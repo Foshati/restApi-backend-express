@@ -1,4 +1,4 @@
-import express from 'express';
+import exfa from 'exfa';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import path from 'path';
@@ -8,10 +8,10 @@ import bookRouter from './routes/book.route';
 
 
 dotenv.config();
-const app = express();
+const app = exfa();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.json());
+app.use(exfa.json());
 
 //router
 app.use("/authors", authorRouter);
@@ -20,7 +20,7 @@ app.use("/books", bookRouter);
 
 //swagger
 const swaggerDocument = require(path.join(__dirname, 'swagger-output.json'));
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', swaggerUi.serve as any, swaggerUi.setup(swaggerDocument) as any);
 app.use('/docs.json', (_req, res) => {
   res.json(swaggerDocument);
 });

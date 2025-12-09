@@ -1,19 +1,19 @@
-import { Router } from 'express';
+import { Router } from 'exfa';
 import {
-  createBook,
-  deleteBook,
-  getAllBooks,
-  getBookById,
-  updateBook,
+  createProfile,
+  deleteProfile,
+  getAllProfiles,
+  getProfileById,
+  updateProfile,
 
-} from '../controllers/book.controller';
+} from '../controllers/profile.Controller';
 
 const profileRouter = Router();
 
-profileRouter.get('/', getAllBooks);
-profileRouter.get('/:id', getBookById);
-profileRouter.post('/', createBook);
-profileRouter.put('/:id', updateBook);
-profileRouter.delete('/:id', deleteBook);
+profileRouter.get('/', getAllProfiles);
+profileRouter.get('/:id', getProfileById);
+profileRouter.post('/', createProfile);
+profileRouter.put('/:id', updateProfile);
+profileRouter.delete('/:id', deleteProfile);
 
 export default profileRouter; 

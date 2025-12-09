@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Todo Apis",
-    "description": "API for Managing todo calls",
+    "title": "Project API",
+    "description": "API for Authors, Books, and Profiles",
     "contact": {
       "name": "API Support",
       "email": "tiwariankit496@gmail.com"
@@ -11,183 +11,397 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/"
+      "url": "http://localhost:8080/"
     }
   ],
   "tags": [
     {
-      "name": "TODO CRUD",
-      "description": "TODO related apis"
+      "name": "Authors",
+      "description": "Operations about authors"
     },
     {
-      "name": "Todo",
-      "description": "Todo App"
+      "name": "Books",
+      "description": "Operations about books"
+    },
+    {
+      "name": "Profiles",
+      "description": "Operations about user profiles"
     }
   ],
-  "securityDefinitions": {},
   "paths": {
-    "/": {
+    "/authors/": {
       "get": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Get all authors",
+        "description": "Retrieve a list of all authors",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Author"
+                  }
+                }
+              }
+            }
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "500": { "description": "Internal Server Error" }
         }
       },
       "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
+        "tags": ["Authors"],
+        "summary": "Create a new author",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorInput"
+              }
+            }
           }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Author" }
+              }
+            }
+          },
+          "400": { "description": "Bad Request" }
         }
       }
     },
-    "/{id}": {
+    "/authors/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Get author by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" },
+            "description": "Author ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Author" }
+              }
+            }
           },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "404": { "description": "Not Found" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Update author",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthorInput" }
+            }
+          }
+        },
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Author" }
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Delete author",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": { "description": "No Content" }
+        }
+      }
+    },
+    "/books/": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get all books",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Book" }
+                }
+              }
+            }
           }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "summary": "Create a new book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BookInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Get book by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "summary": "Update book",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BookInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "summary": "Delete book",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "No Content" }
+        }
+      }
+    },
+    "/profiles/": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Get all profiles",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Profile" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Profiles"],
+        "summary": "Create a new profile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProfileInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Profile" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profiles/{id}": {
+      "get": {
+        "tags": ["Profiles"],
+        "summary": "Get profile by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Profile" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "tags": ["Profiles"],
+        "summary": "Update profile",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProfileInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Profile" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Profiles"],
+        "summary": "Delete profile",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "No Content" }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "todoResponse": {
+      "Author": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "number",
-            "example": 200
-          },
-          "message": {
-            "type": "string",
-            "example": "Success"
-          }
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" }
         }
       },
-      "errorResponse.400": {
+      "AuthorInput": {
         "type": "object",
+        "required": ["name"],
         "properties": {
-          "code": {
-            "type": "number",
-            "example": 400
-          },
-          "message": {
-            "type": "string",
-            "example": "The request was malformed or invalid. Please check the request parameters."
-          }
+          "name": { "type": "string", "example": "J.K. Rowling" }
         }
       },
-      "errorResponse.401": {
+      "Book": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "number",
-            "example": 401
-          },
-          "message": {
-            "type": "string",
-            "example": "Authentication failed or user lacks proper authorization."
-          }
+          "id": { "type": "string", "format": "uuid" },
+          "title": { "type": "string" },
+          "authorId": { "type": "string", "format": "uuid" },
+          "description": { "type": "string" },
+          "author": { "$ref": "#/components/schemas/Author" }
         }
       },
-      "errorResponse.403": {
+      "BookInput": {
         "type": "object",
+        "required": ["title", "authorId"],
         "properties": {
-          "code": {
-            "type": "number",
-            "example": 403
-          },
-          "message": {
-            "type": "string",
-            "example": "You do not have permission to access this resource."
-          }
+          "title": { "type": "string", "example": "Harry Potter" },
+          "authorId": { "type": "string", "format": "uuid", "example": "123e4567-e89b-12d3-a456-426614174000" },
+          "description": { "type": "string", "example": "A wizard story" }
         }
       },
-      "errorResponse.404": {
+      "Profile": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "string",
-            "example": "404"
-          },
-          "message": {
-            "type": "string",
-            "example": "The requested resource could not be found on the server."
-          }
+          "id": { "type": "string", "format": "uuid" },
+          "userId": { "type": "string", "format": "uuid" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string" },
+          "address": { "type": "string" },
+          "bio": { "type": "string" },
+          "avatar": { "type": "string" }
         }
       },
-      "errorResponse.500": {
+      "ProfileInput": {
         "type": "object",
+        "required": ["userId", "firstName", "lastName", "email"],
         "properties": {
-          "code": {
-            "type": "number",
-            "example": 500
-          },
-          "message": {
-            "type": "string",
-            "example": "An unexpected error occurred on the server. Please try again later."
-          }
+          "userId": { "type": "string", "format": "uuid", "example": "123e4567-e89b-12d3-a456-426614174000" },
+          "firstName": { "type": "string", "example": "John" },
+          "lastName": { "type": "string", "example": "Doe" },
+          "email": { "type": "string", "format": "email", "example": "john.doe@example.com" },
+          "phone": { "type": "string", "example": "+1234567890" },
+          "address": { "type": "string", "example": "123 Main St" },
+          "bio": { "type": "string", "example": "Software Developer" },
+          "avatar": { "type": "string", "example": "http://example.com/avatar.jpg" }
         }
       }
     }
